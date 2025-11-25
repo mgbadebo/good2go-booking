@@ -2,39 +2,46 @@
 
 @section('content')
 <section class="bg-gradient-to-b from-indigo-50 via-white to-slate-50 relative overflow-hidden">
-    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:gap-8 sm:py-12 md:flex-row md:items-start md:gap-10">
-        <div class="md:w-1/2 z-10">
-            <p class="text-xs uppercase tracking-[0.2em] text-indigo-600 font-semibold sm:text-sm">Chauffeur & Driver Service</p>
-            <h1 class="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
-                Safe, professional drivers<br class="hidden sm:block"> for every journey.
-            </h1>
-            <p class="mt-4 text-sm leading-relaxed text-slate-700 sm:text-base">
-                Good2Go offers premium car-and-driver and driver-only services designed for busy professionals, families, and everyday travellers who value safety, convenience, and reliability. Whether you need a chauffeured ride for an important meeting, help with school runs, or simply want a trusted driver behind the wheel of your own car, we make the process effortless. Book online in minutes, get matched with a fully vetted and verified driver, and enjoy every journey with total peace of mind and comfort.
-            </p>
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-3">
-                <a href="{{ route('bookings.create') }}"
-                   class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 active:bg-indigo-700 touch-manipulation">
-                    Book a driver
-                </a>
-                <a href="{{ route('services.index') }}"
-                   class="inline-flex items-center justify-center rounded-full border-2 border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 active:bg-slate-100 touch-manipulation">
-                    View services
-                </a>
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        {{-- Hero Section: Image and Text Side by Side --}}
+        <div class="flex flex-col gap-6 md:flex-row md:items-start md:gap-10 mb-8 md:mb-12">
+            {{-- Hero Image (Left on desktop) --}}
+            <div class="md:w-1/2 relative z-10">
+                <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-slate-200 sm:rounded-3xl">
+                    <img src="{{ asset('images/hero/hero-image.png') }}" 
+                         alt="Professional chauffeur service"
+                         class="w-full h-auto object-cover"
+                         onerror="this.style.display='none';">
+                </div>
             </div>
-            <p class="mt-4 text-xs text-slate-600 sm:text-[11px]">
-                Minimum 2-hour hire • Flexible daily packages • SMS-verified customers.
-            </p>
+
+            {{-- Text Content (Right on desktop) --}}
+            <div class="md:w-1/2 z-10">
+                <p class="text-xs uppercase tracking-[0.2em] text-indigo-600 font-semibold sm:text-sm">Chauffeur & Driver Service</p>
+                <h1 class="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+                    Safe, professional drivers<br class="hidden sm:block"> for every journey.
+                </h1>
+                <p class="mt-4 text-sm leading-relaxed text-slate-700 sm:text-base">
+                    Good2Go offers premium car-and-driver and driver-only services designed for busy professionals, families, and everyday travellers who value safety, convenience, and reliability. Whether you need a chauffeured ride for an important meeting, help with school runs, or simply want a trusted driver behind the wheel of your own car, we make the process effortless. Book online in minutes, get matched with a fully vetted and verified driver, and enjoy every journey with total peace of mind and comfort.
+                </p>
+                <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:gap-3">
+                    <a href="{{ route('bookings.create') }}"
+                       class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 active:bg-indigo-700 touch-manipulation">
+                        Book a driver
+                    </a>
+                    <a href="{{ route('services.index') }}"
+                       class="inline-flex items-center justify-center rounded-full border-2 border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50 active:bg-slate-100 touch-manipulation">
+                        View services
+                    </a>
+                </div>
+                <p class="mt-4 text-xs text-slate-600 sm:text-[11px]">
+                    Minimum 2-hour hire • Flexible daily packages • SMS-verified customers.
+                </p>
+            </div>
         </div>
 
-        <div class="md:w-1/2 mt-6 relative z-10 space-y-6">
-            {{-- Hero Image --}}
-            <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-slate-200 sm:rounded-3xl">
-                <img src="{{ asset('images/hero/hero-image.png') }}" 
-                     alt="Professional chauffeur service"
-                     class="w-full h-auto object-cover"
-                     onerror="this.style.display='none';">
-            </div>
-            
+        {{-- Bottom Section: Why Choose and Quick Snapshot Side by Side --}}
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             {{-- Why choose Good2Go? Section --}}
             <div class="rounded-2xl bg-white p-4 shadow-lg ring-1 ring-slate-200 sm:rounded-3xl sm:p-5">
                 <h2 class="text-base font-semibold tracking-tight text-slate-900 sm:text-lg">Why choose Good2Go?</h2>
