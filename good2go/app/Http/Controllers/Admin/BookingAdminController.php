@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Mail\BookingStatusUpdate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BookingAdminController extends Controller
 {
@@ -56,9 +58,24 @@ class BookingAdminController extends Controller
             'booking_status' => 'required|in:pending,confirmed,in_progress,completed,cancelled',
         ]);
 
+        $oldStatus = $booking->booking_status;
+        $newStatus = $request->booking_status;
+
         $booking->update([
-            'booking_status' => $request->booking_status,
+            'booking_status' => $newStatus,
         ]);
+
+        // Send status update email
+        if ($oldStatus !== $newStatus && $booking->user && $booking->user->email) {
+            try {
+                $booking->load(['user', 'serviceType']);
+                Mail::to($booking->user->email)->send(
+                    new BookingStatusUpdate($booking, $oldStatus, $newStatus)
+                );
+            } catch (\Exception $e) {
+                \Log::error('Failed to send booking status update email: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->back()->with('success', 'Booking status updated successfully.');
     }
@@ -69,9 +86,30 @@ class BookingAdminController extends Controller
             'payment_status' => 'required|in:pending,paid,failed,cancelled,refunded',
         ]);
 
+        $oldPaymentStatus = $booking->payment_status;
+        $newPaymentStatus = $request->payment_status;
+
         $booking->update([
-            'payment_status' => $request->payment_status,
+            'payment_status' => $newPaymentStatus,
         ]);
+
+        // If payment is confirmed and booking is still pending, auto-confirm booking
+        if ($newPaymentStatus === 'paid' && $booking->booking_status === 'pending') {
+            $oldStatus = $booking->booking_status;
+            $booking->update(['booking_status' => 'confirmed']);
+            
+            // Send status update email
+            if ($booking->user && $booking->user->email) {
+                try {
+                    $booking->load(['user', 'serviceType']);
+                    Mail::to($booking->user->email)->send(
+                        new BookingStatusUpdate($booking, $oldStatus, 'confirmed')
+                    );
+                } catch (\Exception $e) {
+                    \Log::error('Failed to send booking confirmation email: ' . $e->getMessage());
+                }
+            }
+        }
 
         return redirect()->back()->with('success', 'Payment status updated successfully.');
     }

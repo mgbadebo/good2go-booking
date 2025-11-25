@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\ServiceType;
 use App\Models\PricingRule;
+use App\Mail\BookingConfirmation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -84,6 +86,17 @@ class BookingController extends Controller
             'total_price'     => $totalPrice,
             'currency'        => 'NGN',
         ]);
+
+        // Send booking confirmation email
+        if ($booking->user->email) {
+            try {
+                $booking->load(['user', 'serviceType']);
+                Mail::to($booking->user->email)->send(new BookingConfirmation($booking));
+            } catch (\Exception $e) {
+                // Log error but don't fail the booking creation
+                \Log::error('Failed to send booking confirmation email: ' . $e->getMessage());
+            }
+        }
 
         return redirect()
             ->route('bookings.index')
