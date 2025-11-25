@@ -1,0 +1,70 @@
+<svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <rect width="800" height="600" fill="url(#gradient2)"/>
+  <defs>
+    <linearGradient id="gradient2" x1="0" y1="0" x2="800" y2="600">
+      <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4F46E5;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Executive Car (luxury sedan) -->
+  <g transform="translate(100, 250)">
+    <!-- Car body -->
+    <rect x="0" y="0" width="600" height="250" rx="25" fill="#1E293B"/>
+    <rect x="50" y="30" width="500" height="200" rx="20" fill="#0F172A"/>
+    
+    <!-- Car roof -->
+    <path d="M 100 30 Q 300 0 500 30 L 500 150 Q 300 180 100 150 Z" fill="#1E293B"/>
+    
+    <!-- Car windows -->
+    <rect x="120" y="60" width="150" height="100" rx="8" fill="#334155" opacity="0.5"/>
+    <rect x="330" y="60" width="150" height="100" rx="8" fill="#334155" opacity="0.5"/>
+    
+    <!-- Car grille -->
+    <rect x="50" y="200" width="100" height="30" rx="5" fill="#475569"/>
+    <line x1="60" y1="210" x2="140" y2="210" stroke="#64748B" stroke-width="2"/>
+    <line x1="60" y1="215" x2="140" y2="215" stroke="#64748B" stroke-width="2"/>
+    <line x1="60" y1="220" x2="140" y2="220" stroke="#64748B" stroke-width="2"/>
+    
+    <!-- Car wheels -->
+    <circle cx="150" cy="250" r="40" fill="#0F172A"/>
+    <circle cx="450" cy="250" r="40" fill="#0F172A"/>
+    <circle cx="150" cy="250" r="30" fill="#475569"/>
+    <circle cx="450" cy="250" r="30" fill="#475569"/>
+    <circle cx="150" cy="250" r="15" fill="#64748B"/>
+    <circle cx="450" cy="250" r="15" fill="#64748B"/>
+    
+    <!-- Car lights -->
+    <ellipse cx="50" cy="180" rx="15" ry="25" fill="#FBBF24"/>
+    <ellipse cx="550" cy="180" rx="15" ry="25" fill="#EF4444"/>
+  </g>
+  
+  <!-- Professional Driver (in driver's seat) -->
+  <g transform="translate(200, 280)">
+    <!-- Driver head -->
+    <circle cx="0" cy="0" r="25" fill="#FBBF24"/>
+    <!-- Driver suit/shirt -->
+    <rect x="-30" y="25" width="60" height="80" rx="5" fill="#1E293B"/>
+    <rect x="-25" y="30" width="50" height="70" rx="3" fill="#0F172A"/>
+    <!-- Driver hands on steering wheel -->
+    <circle cx="0" cy="50" r="35" fill="none" stroke="#FBBF24" stroke-width="8"/>
+    <circle cx="0" cy="50" r="25" fill="none" stroke="#FBBF24" stroke-width="4"/>
+    <!-- Driver hat/cap -->
+    <ellipse cx="0" cy="-15" rx="28" ry="12" fill="#1E293B"/>
+  </g>
+  
+  <!-- Steering wheel detail -->
+  <g transform="translate(200, 330)">
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#475569" stroke-width="4"/>
+    <line x1="-20" y1="-20" x2="20" y2="20" stroke="#475569" stroke-width="3"/>
+    <line x1="20" y1="-20" x2="-20" y2="20" stroke="#475569" stroke-width="3"/>
+  </g>
+  
+  <!-- Road lines -->
+  <line x1="0" y1="500" x2="800" y2="500" stroke="#FBBF24" stroke-width="4" stroke-dasharray="40 40"/>
+  
+  <!-- Ground/shadow -->
+  <ellipse cx="400" cy="550" rx="350" ry="40" fill="#1E293B" opacity="0.3"/>
+</svg>
+
