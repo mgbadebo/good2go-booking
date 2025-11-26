@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BookingAdminController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
@@ -22,6 +23,7 @@ Route::get('/services', [ServiceController::class, 'index'])->name('services.ind
 Route::get('/pricing', [PageController::class, 'pricing'])->name('pricing');
 Route::get('/faqs', [PageController::class, 'faqs'])->name('faqs');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/driver-recruitment', [PageController::class, 'driverRecruitment'])->name('driver.recruitment');
 
 Route::get('/dashboard', function () {
