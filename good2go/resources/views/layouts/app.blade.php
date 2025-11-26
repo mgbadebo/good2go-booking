@@ -12,7 +12,26 @@
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon-32x32.png') }}">
 
+    {{-- Vite Assets - Safari compatible --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    {{-- Fallback CSS for Safari compatibility --}}
+    @production
+        @php
+            try {
+                $manifestPath = public_path('build/manifest.json');
+                if (file_exists($manifestPath)) {
+                    $manifest = json_decode(file_get_contents($manifestPath), true);
+                    $cssFile = $manifest['resources/css/app.css']['file'] ?? null;
+                    if ($cssFile) {
+                        echo '<link rel="stylesheet" href="' . asset('build/' . $cssFile) . '">';
+                    }
+                }
+            } catch (\Exception $e) {
+                // Silently fail if manifest doesn't exist
+            }
+        @endphp
+    @endproduction
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
     <div class="flex flex-col min-h-screen">
@@ -26,6 +45,7 @@
                     <img src="{{ asset('images/logo/logo.png') }}" 
                          alt="Good2Go" 
                          class="h-12 w-auto sm:h-16 md:h-20"
+                         style="max-width: 80px; height: auto; object-fit: contain;"
                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     {{-- Fallback if image not found --}}
                     <span class="inline-flex h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white" style="display: none;">

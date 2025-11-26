@@ -18,4 +18,9 @@ export default {
     },
 
     plugins: [forms],
+    
+    // Ensure Safari compatibility
+    corePlugins: {
+        backdropBlur: true,
+    },
 };
