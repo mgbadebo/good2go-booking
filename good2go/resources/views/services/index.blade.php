@@ -1,5 +1,22 @@
 @extends('layouts.app')
 
+@php
+if (!function_exists('format_currency')) {
+    function format_currency(?string $currency, $amount): string
+    {
+        $symbol = match (strtoupper($currency ?? '')) {
+            'NGN' => '₦',
+            'USD' => '$',
+            'GBP' => '£',
+            'EUR' => '€',
+            default => ($currency ? strtoupper($currency).' ' : ''),
+        };
+
+        return $symbol . number_format((float) $amount, 0);
+    }
+}
+@endphp
+
 @section('content')
 <div class="mx-auto max-w-6xl px-4 py-10">
     <h1 class="text-xl font-semibold tracking-tight text-slate-900">Our services</h1>
@@ -14,6 +31,14 @@
                 $imagePath = $service->slug === 'car-driver' 
                     ? asset('images/services/car-driver.png')
                     : asset('images/services/driver-only.png');
+                $hourlyRule = $service->pricingRules->firstWhere('hire_type', 'hourly');
+                $dailyRule = $service->pricingRules->firstWhere('hire_type', 'daily');
+                $startingLabel = null;
+                if ($hourlyRule) {
+                    $startingLabel = format_currency($hourlyRule->currency, $hourlyRule->base_rate) . '/hr';
+                } elseif ($dailyRule) {
+                    $startingLabel = format_currency($dailyRule->currency, $dailyRule->base_rate) . '/day';
+                }
             @endphp
             <div class="group overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-200 transition-all hover:shadow-xl hover:ring-indigo-300">
                 {{-- Image Section --}}
@@ -64,7 +89,14 @@
                     
                     {{-- CTA Section --}}
                     <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
-                        <span class="text-sm font-medium text-slate-700">Starting from</span>
+                        <span class="text-sm font-medium text-slate-700">
+                            Starting from
+                            @if ($startingLabel)
+                                <span class="text-base font-semibold text-indigo-600 ml-1">{{ $startingLabel }}</span>
+                            @else
+                                <span class="text-xs font-medium text-slate-500 ml-1">Contact us for pricing</span>
+                            @endif
+                        </span>
                         @auth
                             <a href="{{ route('bookings.create') }}"
                                class="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-500">

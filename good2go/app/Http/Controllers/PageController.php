@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
+use App\Models\ServiceType;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -14,7 +15,14 @@ class PageController extends Controller
 
     public function pricing()
     {
-        return view('pages.pricing');
+        $serviceTypes = ServiceType::where('is_active', true)
+            ->with(['pricingRules' => function ($query) {
+                $query->where('is_active', true);
+            }])
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.pricing', compact('serviceTypes'));
     }
 
     public function faqs()
