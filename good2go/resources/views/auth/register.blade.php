@@ -1,55 +1,49 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+    <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        <div class="space-y-1.5">
+            <label for="name" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Full name</label>
+            <input id="name" type="text" name="name" :value="old('name')" required autofocus autocomplete="name"
+                   class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40" placeholder="Jane Doe">
+            <x-input-error :messages="$errors->get('name')" class="mt-1 text-xs" />
         </div>
 
-        <!-- Phone -->
-        <div>
-            <x-input-label for="phone" :value="__('Phone')" />
-            <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autocomplete="tel" />
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        <div class="space-y-1.5">
+            <label for="phone" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Phone number</label>
+            <input id="phone" type="tel" name="phone" :value="old('phone')" required autocomplete="tel"
+                   class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40" placeholder="+234 801 234 5678">
+            <x-input-error :messages="$errors->get('phone')" class="mt-1 text-xs" />
         </div>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email (Optional)')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="space-y-1.5">
+            <label for="email" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Email (optional)</label>
+            <input id="email" type="email" name="email" :value="old('email')" autocomplete="username"
+                   class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40" placeholder="you@email.com">
+            <x-input-error :messages="$errors->get('email')" class="mt-1 text-xs" />
         </div>
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="space-y-1.5">
+            <label for="password" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Password</label>
+            <input id="password" type="password" name="password" required autocomplete="new-password"
+                   class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40" placeholder="Create a password">
+            <x-input-error :messages="$errors->get('password')" class="mt-1 text-xs" />
         </div>
 
-        <!-- Confirm Password -->
-        <div>
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        <div class="space-y-1.5">
+            <label for="password_confirmation" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Confirm password</label>
+            <input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password"
+                   class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40" placeholder="Re-enter password">
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1 text-xs" />
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-6">
-            <a class="text-center sm:text-left underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+        <button type="submit" class="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500">
+            Create account
+        </button>
 
-            <x-primary-button class="w-full sm:w-auto sm:ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
+        <p class="text-center text-xs text-slate-500">
+            Already registered?
+            <a href="{{ route('login') }}" class="font-semibold text-indigo-600 hover:text-indigo-500">Log in</a>
+        </p>
     </form>
 </x-guest-layout>

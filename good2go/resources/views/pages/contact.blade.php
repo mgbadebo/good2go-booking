@@ -32,50 +32,50 @@
     </div>
     @endif
 
-    <div class="mt-6 grid gap-6 md:grid-cols-2 text-sm">
-        <form method="POST" action="{{ route('contact.store') }}" class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <form method="POST" action="{{ route('contact.store') }}" class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-100 space-y-4">
             @csrf
-            <div class="mb-3">
-                <label for="name" class="mb-1 block text-xs font-medium text-slate-700">Name</label>
+            <div class="space-y-1.5">
+                <label for="name" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Full name</label>
                 <input type="text" id="name" name="name" value="{{ old('name') }}" required
-                       class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 @error('name') border-red-300 @enderror">
+                       class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 @error('name') border-red-300 @enderror" placeholder="Jane Doe">
                 @error('name')
-                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="email" class="mb-1 block text-xs font-medium text-slate-700">Email</label>
+            <div class="space-y-1.5">
+                <label for="email" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Email address</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                       class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 @error('email') border-red-300 @enderror">
+                       class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 @error('email') border-red-300 @enderror" placeholder="name@email.com">
                 @error('email')
-                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="phone" class="mb-1 block text-xs font-medium text-slate-700">Phone</label>
+            <div class="space-y-1.5">
+                <label for="phone" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Phone number</label>
                 <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required
-                       class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 @error('phone') border-red-300 @enderror">
+                       class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 @error('phone') border-red-300 @enderror" placeholder="+234 803 846 4849">
                 @error('phone')
-                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="subject" class="mb-1 block text-xs font-medium text-slate-700">Subject (Optional)</label>
+            <div class="space-y-1.5">
+                <label for="subject" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Subject (optional)</label>
                 <input type="text" id="subject" name="subject" value="{{ old('subject') }}"
-                       class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 @error('subject') border-red-300 @enderror">
+                       class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 @error('subject') border-red-300 @enderror" placeholder="How can we help?">
                 @error('subject')
-                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="message" class="mb-1 block text-xs font-medium text-slate-700">Message</label>
+            <div class="space-y-1.5">
+                <label for="message" class="text-xs font-semibold uppercase tracking-wide text-slate-600">Message</label>
                 <textarea id="message" name="message" rows="4" required
-                          class="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 @error('message') border-red-300 @enderror">{{ old('message') }}</textarea>
+                          class="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/40 @error('message') border-red-300 @enderror" placeholder="Tell us more...">{{ old('message') }}</textarea>
                 @error('message')
-                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    <p class="text-xs text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="mt-2 w-full rounded-full bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-500">
+            <button type="submit" class="w-full rounded-2xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500">
                 Send message
             </button>
         </form>
