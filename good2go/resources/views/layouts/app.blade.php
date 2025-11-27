@@ -12,6 +12,11 @@
     <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon-32x32.png') }}">
 
+    {{-- Prevent Alpine x-cloak flash --}}
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
     {{-- Vite Assets - Safari compatible --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
