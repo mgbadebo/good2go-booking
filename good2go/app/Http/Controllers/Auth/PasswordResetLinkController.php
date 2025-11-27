@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -29,16 +30,25 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
+        // Check if user exists with this email
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withInput($request->only('email'))
+                ->withErrors(['email' => 'We could not find an account with that email address. Please use the email address you used to register.']);
+        }
+
+        // User exists, send the password reset link
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]);
+        if ($status == Password::RESET_LINK_SENT) {
+            return back()->with('status', 'We have emailed your password reset link. Please check your inbox and follow the instructions to reset your password.');
+        }
+
+        // If sending failed for some reason, show error
+        return back()->withInput($request->only('email'))
+            ->withErrors(['email' => 'Unable to send password reset link. Please try again later.']);
     }
 }
