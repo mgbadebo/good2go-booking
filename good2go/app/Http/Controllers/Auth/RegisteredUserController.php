@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Mail\WelcomeEmail;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,10 +33,26 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:150'],
-            'email' => ['nullable', 'string', 'lowercase', 'email', 'max:191', 'unique:'.User::class],
-            'phone' => ['required', 'string', 'max:30', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:191'],
+            'email_confirmation' => ['required', 'same:email'],
+            'phone' => ['required', 'string', 'max:30'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        $existingUser = User::query()
+            ->where('phone', $request->phone)
+            ->orWhere('email', $request->email)
+            ->first();
+
+        if ($existingUser) {
+            return back()
+                ->withInput($request->except(['password', 'password_confirmation']))
+                ->with('duplicate_user', true)
+                ->with('password_reset_email', $existingUser->email ?? $request->email)
+                ->withErrors([
+                    'account' => 'An account already exists with this email address or phone number.',
+                ]);
+        }
 
         $user = User::create([
             'name' => $request->name,
